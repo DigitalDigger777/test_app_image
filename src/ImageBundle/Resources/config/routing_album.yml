@@ -2,9 +2,9 @@ image_album_list:
     path:     /
     defaults: { _controller: ImageBundle:Album:list }
 
-image_album_list:
-    path:     /album/list
-    defaults: { _controller: ImageBundle:Album:list }
+#image_album_list:
+#    path:     /album/list
+#    defaults: { _controller: ImageBundle:Album:list }
 
 #image_album_items:
 #    path:     /album/{id}
