@@ -1,18 +1,28 @@
-image_test_task
+Test image application
 ===============
 
 ##Install dependencies
-composer install
-bower install
-
-
+```sh
+composer install && bower install
+```
 ##Assets install
-./app/console assets:install
 
+```sh
+ ./app/console assets:install
+```
 ##Download test images
- wget -i src/ImageBundle/DataFixtures/ORM/images/source.txt -P src/ImageBundle/DataFixtures/ORM/images
 
-##Create and init database 
+```sh
+ wget -i src/ImageBundle/DataFixtures/ORM/images/source.txt -P src/ImageBundle/DataFixtures/ORM/images
+```
+##Create and init database
+ ```sh
  ./app/console doctrine:database:create
+ ```  
+ ```sh 
  ./app/console doctrine:schema:update --force
+ ```  
+ ```sh 
  ./app/console doctrine:fixtures:load
+ ```  
+ 
