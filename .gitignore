@@ -1,0 +1,17 @@
+/web/bundles/
+/web/uploads/
+/web/assets/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+/src/ImageBundle/DataFixtures/ORM/images/*.jpg
+!/src/ImageBundle/DataFixtures/ORM/images/source.txt
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/app/phpunit.xml
+/build/
+/vendor/
+/bin/
+/composer.phar
+.idea/

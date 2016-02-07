@@ -1,0 +1,12 @@
+{% for item in pagination %}
+    <div class="col-md-3">
+        <div class="thumbnail">
+
+            <img class="album-item" src="{{ asset('uploads/' ~ item.file) }}" alt="" />
+
+            <div class="caption">
+                <h4>{{ item.title }}</h4>
+            </div>
+        </div>
+    </div>
+{% endfor %}

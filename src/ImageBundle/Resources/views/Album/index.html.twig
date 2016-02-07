@@ -1,0 +1,16 @@
+{% extends 'ImageBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {% for album in albums %}
+        <div class="col-md-3">
+            <div class="thumbnail" data-href="{{ path('image_album_items_by_page', { id:album.id, page: 1 }) }}">
+                <img class="album-item" src="{{ asset('uploads/' ~ album.images.get(0).file) }}" alt="" />
+                <div class="caption">
+                    <h4>{{ album.name }}</h4>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

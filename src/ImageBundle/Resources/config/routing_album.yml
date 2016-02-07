@@ -1,0 +1,17 @@
+image_album_list:
+    path:     /album/list
+    defaults: { _controller: ImageBundle:Album:list }
+
+#image_album_items:
+#    path:     /album/{id}
+#    defaults: { _controller: ImageBundle:Album:items, page: 1 }
+
+image_album_items_by_page:
+    path:     /album/{id}/page/{page}
+    defaults: { _controller: ImageBundle:Album:items, page: 1 }
+
+image_ajax_album_items_by_page:
+    path:     /ajax/album/{id}/page/{page}
+    defaults: { _controller: ImageBundle:Album:ajaxItems, page: 1 }
+    options:
+        expose: true

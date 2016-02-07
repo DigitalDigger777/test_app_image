@@ -1,0 +1,23 @@
+{
+  "name": "image_test_task",
+  "authors": [
+    "Yuriy Korman <korman.yuri@gmail.com>"
+  ],
+  "description": "test task",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "backbone.marionette": "marionette#^2.4.4"
+  }
+}

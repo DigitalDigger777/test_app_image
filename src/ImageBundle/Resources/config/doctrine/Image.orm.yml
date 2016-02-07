@@ -1,0 +1,26 @@
+ImageBundle\Entity\Image:
+    type: entity
+    table: images
+    repositoryClass: ImageBundle\Repository\ImageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: '500'
+        file:
+            type: string
+            length: '200'
+    manyToOne:
+        album:
+            targetEntity: Album
+            inversedBy: images
+            joinColumn:
+                name: album_id
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

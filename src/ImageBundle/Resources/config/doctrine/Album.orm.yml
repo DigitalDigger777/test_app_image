@@ -1,0 +1,19 @@
+ImageBundle\Entity\Album:
+    type: entity
+    table: albums
+    repositoryClass: ImageBundle\Repository\AlbumRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '300'
+    oneToMany:
+        images:
+            targetEntity: Image
+            mappedBy: album
+    lifecycleCallbacks: {  }
