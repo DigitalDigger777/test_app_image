@@ -21,10 +21,12 @@
             });
         };
 
-        loadItems(albumId, page, function(data){
-            $('.album-items').html(data);
-            window.location.hash = page;
-        });
+        if (albumId !== undefined) {
+            loadItems(albumId, page, function (data) {
+                $('.album-items').html(data);
+                window.location.hash = page;
+            });
+        }
 
         $('body').on('click', '[data-href]', function(e){
             window.location = $(this).attr('data-href');

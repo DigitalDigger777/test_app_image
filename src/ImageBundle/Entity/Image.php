@@ -1,11 +1,15 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: korman
+ * Date: 07.02.16
+ * Time: 15:10.
+ */
 namespace ImageBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Image
+ * Class Image
+ * @package ImageBundle\Entity
  */
 class Image
 {
@@ -30,9 +34,9 @@ class Image
     private $album;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -40,9 +44,10 @@ class Image
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return Image
      */
     public function setTitle($title)
@@ -53,9 +58,9 @@ class Image
     }
 
     /**
-     * Get title
+     * Get title.
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -63,9 +68,10 @@ class Image
     }
 
     /**
-     * Set file
+     * Set file.
      *
      * @param string $file
+     *
      * @return Image
      */
     public function setFile($file)
@@ -76,9 +82,9 @@ class Image
     }
 
     /**
-     * Get file
+     * Get file.
      *
-     * @return string 
+     * @return string
      */
     public function getFile()
     {

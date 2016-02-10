@@ -3,8 +3,11 @@
 namespace ImageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class AlbumController
+ * @package ImageBundle\Controller
+ */
 class AlbumController extends Controller
 {
     /**
@@ -18,6 +21,8 @@ class AlbumController extends Controller
     public $pagination;
 
     /**
+     * List action.
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction()
@@ -27,13 +32,16 @@ class AlbumController extends Controller
         $albums = $em->getRepository('ImageBundle:Album')->findAll();
 
         return $this->render('ImageBundle:Album:index.html.twig', [
-            'albums' => $albums
+            'albums' => $albums,
         ]);
     }
 
     /**
-     * @param $id
-     * @param $page
+     * Items action.
+     *
+     * @param int $id   Item id.
+     * @param int $page Page number.
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function itemsAction($id, $page)
@@ -41,26 +49,40 @@ class AlbumController extends Controller
         $this->loadItems($id, $page);
 
         return $this->render('ImageBundle:Album:items.html.twig', [
-            'album'      => $this->album,
-            'pagination' => $this->pagination
+            'album' => $this->album,
+            'pagination' => $this->pagination,
         ]);
     }
 
+    /**
+     * Ajax items action.
+     *
+     * @param int $id   Item id.
+     * @param int $page Page number.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function ajaxItemsAction($id, $page)
     {
         $this->loadItems($id, $page);
 
         return $this->render('ImageBundle:Album:_ajax_items.html.twig', [
-            'album'      => $this->album,
-            'pagination' => $this->pagination
+            'album' => $this->album,
+            'pagination' => $this->pagination,
         ]);
     }
 
+    /**
+     * Load items.
+     *
+     * @param $id
+     * @param $page
+     */
     private function loadItems($id, $page)
     {
-        /**
-         * @type \ImageBundle\Repository\AlbumRepository $albumRepo
-         * @type \ImageBundle\Entity\Album $album
+        /*
+         * @var \ImageBundle\Repository\AlbumRepository $albumRepo
+         * @var \ImageBundle\Entity\Album $album
          */
         $em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
@@ -68,7 +90,7 @@ class AlbumController extends Controller
         $albumRepo = $em->getRepository('\ImageBundle\Entity\Album');
         $albumRepo->setPaginator($paginator);
 
-        $this->album      = $albumRepo->find($id);
+        $this->album = $albumRepo->find($id);
         $this->pagination = $albumRepo->getItems($this->album, $page);
     }
 }

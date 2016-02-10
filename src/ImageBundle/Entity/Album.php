@@ -2,10 +2,9 @@
 
 namespace ImageBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Album
+ * Class Album
+ * @package ImageBundle\Entity
  */
 class Album
 {
@@ -25,9 +24,9 @@ class Album
     private $images;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -35,9 +34,10 @@ class Album
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Album
      */
     public function setName($name)
@@ -48,9 +48,9 @@ class Album
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
