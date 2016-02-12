@@ -1,12 +1,7 @@
 
-var ImageApp = Backbone.Marionette.Application.extend({
-    initialize: function(options){
-        console.log(options);
-    }
-});
+var ImageApp = Backbone.Marionette.Application.extend({});
 
 var ImageApp = new ImageApp();
-
 
 ImageApp.on('before:start', function(){
     var RegionContainer = Marionette.LayoutView.extend({
@@ -22,7 +17,6 @@ ImageApp.on('before:start', function(){
 
 ImageApp.on('start', function(){
     Backbone.history.start();
-
 });
 
 $(function(){
