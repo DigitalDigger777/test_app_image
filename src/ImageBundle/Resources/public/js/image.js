@@ -1,54 +1,34 @@
-(function($){
 
-    $(document).ready(function(){
+var ImageApp = Backbone.Marionette.Application.extend({
+    initialize: function(options){
+        console.log(options);
+    }
+});
 
-        var page    = window.location.hash.replace('#','');
-        var albumId = $('.navigation[data-album-id]').data('albumId');
+var ImageApp = new ImageApp();
 
-        var loadItems = function(albumId, page, success){
 
-            var url = Routing.generate('image_ajax_album_items_by_page', {
-                id: albumId,
-                page: page
-            });
-
-            $.ajax({
-                url: url,
-                success: success,
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        };
-
-        if (albumId !== undefined) {
-            loadItems(albumId, page, function (data) {
-                $('.album-items').html(data);
-                window.location.hash = page;
-            });
+ImageApp.on('before:start', function(){
+    var RegionContainer = Marionette.LayoutView.extend({
+        el: '#image-app-container',
+        regions: {
+            album: '#album',
+            pagination: '.pagination'
         }
-
-        $('body').on('click', '[data-href]', function(e){
-            window.location = $(this).attr('data-href');
-        });
-
-
-        $('.pagination li a').click(function(e){
-
-            var self    = $(this);
-
-            page = self.text();
-
-            loadItems(albumId, page, function(data) {
-                $('.album-items').html(data);
-                window.location.hash = page;
-            });
-
-            $('.pagination li').removeClass('active');
-            self.parent('li').addClass('active');
-
-            e.preventDefault();
-        });
     });
 
-})(jQuery)
+    ImageApp.regions = new RegionContainer();
+});
+
+ImageApp.on('start', function(){
+    Backbone.history.start();
+
+});
+
+$(function(){
+    ImageApp.Router = new AlbumRouter({
+        controller: AlbumController
+    });
+
+    ImageApp.start();
+});

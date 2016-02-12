@@ -1,0 +1,1 @@
+var Pagination = Backbone.Model.extend({});

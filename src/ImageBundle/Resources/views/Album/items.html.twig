@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="row album-items">
+    <div id="album" class="row album-items">
         {% for item in pagination %}
         <div class="col-md-3">
             <div class="thumbnail">
@@ -38,4 +38,16 @@
             </div>
         </div>
     </div>
+    <script id="imageTemplate" type="text/template">
+        <div class="col-md-3">
+            <div class="thumbnail">
+
+                <img class="album-item" src="{{ asset('uploads/') }}<%- file %>" alt="<%- title %>" />
+
+                <div class="caption">
+                    <h4><%- title %></h4>
+                </div>
+            </div>
+        </div>
+    </script>
 {% endblock %}

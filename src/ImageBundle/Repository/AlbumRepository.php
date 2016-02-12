@@ -8,6 +8,7 @@
 namespace ImageBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use ImageBundle\Entity\Album;
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Knp\Component\Pager\Paginator;
@@ -59,5 +60,22 @@ class AlbumRepository extends EntityRepository implements PaginatorAwareInterfac
             $page,
             12
         );
+    }
+
+    /**
+     * Get album list.
+     *
+     * @return array
+     */
+    public function getAlbumList()
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select('i')
+            ->from('ImageBundle:Album', 'i');
+
+        $query = $qb->getQuery();
+
+        return $query->getResult(Query::HYDRATE_ARRAY);
     }
 }

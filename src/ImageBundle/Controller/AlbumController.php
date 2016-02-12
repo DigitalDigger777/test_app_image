@@ -3,6 +3,7 @@
 namespace ImageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class AlbumController
@@ -25,33 +26,23 @@ class AlbumController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $albums = $em->getRepository('ImageBundle:Album')->findAll();
-
-        return $this->render('ImageBundle:Album:index.html.twig', [
-            'albums' => $albums,
-        ]);
+        return $this->render('ImageBundle:Album:index.html.twig');
     }
 
     /**
-     * Items action.
+     * Ajax albums list action.
      *
-     * @param int $id   Item id.
-     * @param int $page Page number.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
-    public function itemsAction($id, $page)
+    public function ajaxListAction()
     {
-        $this->loadItems($id, $page);
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('ImageBundle:Album:items.html.twig', [
-            'album' => $this->album,
-            'pagination' => $this->pagination,
-        ]);
+        $albums = $em->getRepository('ImageBundle:Album')->getAlbumList();
+
+        return new JsonResponse($albums);
     }
 
     /**
@@ -64,11 +55,37 @@ class AlbumController extends Controller
      */
     public function ajaxItemsAction($id, $page)
     {
+        /**
+         * @var \ImageBundle\Entity\Image $image
+         */
         $this->loadItems($id, $page);
 
-        return $this->render('ImageBundle:Album:_ajax_items.html.twig', [
-            'album' => $this->album,
-            'pagination' => $this->pagination,
+        $images = [];
+
+        foreach($this->pagination as $image) {
+            array_push($images, [
+                'id'    => $image->getId(),
+                'file'  => $image->getFile(),
+                'title' => $image->getTitle()
+            ]);
+        }
+
+        return new JsonResponse($images);
+    }
+
+    /**
+     * Render pagination
+     *
+     * @param $id
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function paginationAction($id, $page)
+    {
+        $this->loadItems($id, $page);
+
+        return $this->render('ImageBundle:Album:_pagination.html.twig', [
+            'pagination' => $this->pagination
         ]);
     }
 
@@ -84,13 +101,13 @@ class AlbumController extends Controller
          * @var \ImageBundle\Repository\AlbumRepository $albumRepo
          * @var \ImageBundle\Entity\Album $album
          */
-        $em = $this->getDoctrine()->getManager();
+        $em        = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
 
         $albumRepo = $em->getRepository('\ImageBundle\Entity\Album');
         $albumRepo->setPaginator($paginator);
 
-        $this->album = $albumRepo->find($id);
+        $this->album      = $albumRepo->find($id);
         $this->pagination = $albumRepo->getItems($this->album, $page);
     }
 }

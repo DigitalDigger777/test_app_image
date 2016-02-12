@@ -1,16 +1,32 @@
 {% extends 'ImageBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        {% for album in albums %}
+    <div class="row pagination"></div>
+    <div id="album" class="row"></div>
+    <div class="row pagination"></div>
+
+    <script id="albumTemplate" type="text/template">
         <div class="col-md-3">
-            <div class="thumbnail" data-href="{{ path('image_album_items_by_page', { id:album.id, page: 1 }) }}">
-                <img class="album-item" src="{{ asset('uploads/' ~ album.images.get(0).file) }}" alt="" />
+            <div class="thumbnail" data-href="<%- url %>" data-album-id="<%- id %>">
+                <img class="album-item" src="<%- imageSrc %>" alt="" />
                 <div class="caption">
-                    <h4>{{ album.name }}</h4>
+                    <h4><a href="<%- url %>"><%- name %></a></h4>
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
+    </script>
+
+    <script id="imageTemplate" type="text/template">
+        <div class="col-md-3">
+            <div class="thumbnail">
+
+                <img class="album-item" src="{{ asset('uploads/') }}<%- file %>" alt="<%- title %>" />
+
+                <div class="caption">
+                    <h4><%- title %></h4>
+                </div>
+            </div>
+        </div>
+    </script>
 {% endblock %}
+

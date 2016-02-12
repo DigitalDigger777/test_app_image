@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <div class="container">
+    <div id="image-app-container" class="container">
         {% block content %}{% endblock %}
     </div>
 
@@ -20,6 +20,13 @@
     {% javascripts
         'assets/vendor/jquery/dist/jquery.min.js'
         'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+        'assets/vendor/underscore/underscore-min.js'
+        'assets/vendor/backbone/backbone-min.js'
+        'assets/vendor/backbone.marionette/lib/backbone.marionette.min.js'
+        'bundles/image/js/models/*'
+        'bundles/image/js/views/*'
+        'bundles/image/js/controllers/*'
+        'bundles/image/js/routes.js'
         'bundles/image/js/image.js' %}
 
         <script src="{{ asset_url }}"></script>

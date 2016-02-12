@@ -1,21 +1,21 @@
-image_album_list:
+image_album_index:
     path:     /
-    defaults: { _controller: ImageBundle:Album:list }
+    defaults: { _controller: ImageBundle:Album:index }
 
-#image_album_list:
-#    path:     /album/list
-#    defaults: { _controller: ImageBundle:Album:list }
-
-#image_album_items:
-#    path:     /album/{id}
-#    defaults: { _controller: ImageBundle:Album:items, page: 1 }
-
-image_album_items_by_page:
-    path:     /album/{id}/page/{page}
-    defaults: { _controller: ImageBundle:Album:items, page: 1 }
+image_ajax_album_list:
+    path:     /ajax/list
+    defaults: { _controller: ImageBundle:Album:ajaxList }
+    options:
+        expose: true
 
 image_ajax_album_items_by_page:
     path:     /ajax/album/{id}/page/{page}
     defaults: { _controller: ImageBundle:Album:ajaxItems, page: 1 }
+    options:
+        expose: true
+
+image_album_pagination:
+    path:     /ajax/album/{id}/pagination/{page}
+    defaults: { _controller: ImageBundle:Album:pagination }
     options:
         expose: true
