@@ -3,6 +3,7 @@
 namespace ImageBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class DefaultControllerTest
@@ -11,35 +12,116 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class AlbumControllerTest extends WebTestCase
 {
     /**
+     * @var ContainerInterface
+     */
+    private $container;
+    /**
+     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     */
+    private $router;
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * Setup.
+     */
+    protected function setUp()
+    {
+        self::bootKernel();
+        $this->container = self::$kernel->getContainer();
+        $this->router    = $this->container->get('router');
+        $this->em        = $this->container->get('doctrine')->getManager();
+    }
+
+    /**
      * Test list albums action.
      */
-    public function testList()
+    public function testIndex()
     {
+        $uri = $this->router->generate('image_album_index');
+
         $client = static::createClient();
-        $client->request('GET', '/');
+        $client->request('GET', $uri);
+
         $statusCode = $client->getResponse()->getStatusCode();
+
         $this->assertEquals(200, $statusCode);
     }
 
     /**
-     * Test items action.
+     * Test album list.
+     */
+    public function testAlbumList()
+    {
+        $uri = $this->router->generate('image_album_index');
+
+        $client = static::createClient();
+        $client->request('GET', $uri);
+        $statusCode = $client->getResponse()->getStatusCode();
+
+        $this->assertEquals(200, $statusCode);
+    }
+
+    /**
+     * Test items route.
+     *
+     * @throws \Exception
      */
     public function testItems()
     {
-        $client = static::createClient();
-        $client->request('GET', '/album/148/page');
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(200, $statusCode);
+        /**
+         * @var \ImageBundle\Entity\Album $album
+         */
+        $album = $this->em->getRepository('\ImageBundle\Entity\Album')->findOneBy([]);
+
+        if ($album) {
+            $id = $album->getId();
+
+            $uri = $this->router->generate('image_album_items_by_page', [
+                'id'    => $id,
+                'page'  => 1,
+            ]);
+
+            $client = static::createClient();
+            $client->request('GET', $uri);
+            $statusCode = $client->getResponse()->getStatusCode();
+
+            $this->assertEquals(200, $statusCode);
+        } else {
+            throw new \Exception("Albums table is empty");
+        }
     }
 
     /**
-     * Test ajax items action.
+     * Test pagination route.
+     *
+     * @throws \Exception
      */
-    public function testAjaxItems()
+    public function testPagination()
     {
-        $client = static::createClient();
-        $client->request('GET', '/ajax/album/148/page');
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(200, $statusCode);
+        /**
+         * @var \ImageBundle\Entity\Album $album
+         */
+        $album = $this->em->getRepository('\ImageBundle\Entity\Album')->findOneBy([]);
+
+        if ($album) {
+            $id = $album->getId();
+
+            $uri = $this->router->generate('image_album_pagination', [
+                'id'    => $id,
+                'page'  => 1,
+            ]);
+
+            $client = static::createClient();
+            $client->request('GET', $uri);
+            $statusCode = $client->getResponse()->getStatusCode();
+
+            $this->assertEquals(200, $statusCode);
+        } else {
+            throw new \Exception("Albums table is empty");
+        }
     }
 }

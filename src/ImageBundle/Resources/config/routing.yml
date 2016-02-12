@@ -1,4 +1,2 @@
-_image_image:
-    resource: routing_image.yml
 _image_album:
     resource: routing_album.yml

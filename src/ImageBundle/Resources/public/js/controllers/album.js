@@ -1,7 +1,7 @@
 var AlbumController = {
     albumList: function(){
 
-        var url = Routing.generate('image_ajax_album_list');
+        var url = Routing.generate('image_album_list');
 
         $.ajax({
             url: url,
@@ -36,7 +36,7 @@ var AlbumController = {
 
         page = page === null ? 1 : page;
 
-        var imagesUrl = Routing.generate('image_ajax_album_items_by_page', {
+        var imagesUrl = Routing.generate('image_album_items_by_page', {
             id: id,
             page: page
         });
@@ -69,7 +69,7 @@ var AlbumController = {
                             id:     id,
                             page:   page
                         });
-                        console.log(url);
+
                         $.ajax({
                             url: url,
                             async: false,

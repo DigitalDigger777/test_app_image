@@ -2,7 +2,7 @@ var PaginationView = Backbone.Marionette.ItemView.extend({
     events: {
         "click .pagination li a": function(e){
             var href = $(e.currentTarget).attr('href');
-            var regExp = /ajax\/album\/([0-9]+?)\/pagination\/([0-9]+?)/;
+            var regExp = /album\/([0-9]+?)\/pagination\/([0-9]+?)/;
             var res = regExp.exec(href);
 
             if (res[1] !== undefined && res[2] !== undefined) {

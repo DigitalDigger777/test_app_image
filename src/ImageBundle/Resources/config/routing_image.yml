@@ -1,3 +1,0 @@
-image_image_item:
-    path:     /image/item
-    defaults: { _controller: ImageBundle:Default:item }

@@ -1,2 +1,4 @@
 services:
-    #...
+    image.album:
+      class: ImageBundle\Service\Album
+      arguments: ['@service_container']
